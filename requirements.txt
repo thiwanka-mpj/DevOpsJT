@@ -1,0 +1,23 @@
+# Core
+mkdocs>=1.6.0
+mkdocs-material>=9.5.0
+
+# Navigation / structure (lets folder structure drive the sidebar,
+# so you never hand-edit mkdocs.yml nav as you add more days)
+mkdocs-awesome-pages-plugin>=2.9.3
+
+# Image zoom (click-to-zoom on screenshots / diagrams)
+mkdocs-glightbox>=0.4.0
+
+# "Last updated" / "Created" dates on each page, from git history
+mkdocs-git-revision-date-localized-plugin>=1.2.6
+
+# HTML/CSS/JS minification for faster loads
+mkdocs-minify-plugin>=0.8.0
+
+# Markdown extensions used by mkdocs.yml (tabs, admonitions, superfences, etc.)
+pymdown-extensions>=10.8
+
+# Optional — enable if you turn on the `social` plugin in mkdocs.yml
+# (requires system libs: cairo, pango, libffi -- see MkDocs Material docs)
+# mkdocs-material[imaging]

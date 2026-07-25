@@ -1,0 +1,44 @@
+name: Deploy MkDocs site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main          # change this if your default branch has a different name
+  workflow_dispatch:    # lets you trigger a deploy manually from the Actions tab
+
+permissions:
+  contents: write       # needed to push the built site to the gh-pages branch
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history — required by git-revision-date-localized-plugin
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build and deploy with MkDocs
+        env:
+          CI: true
+        run: mkdocs gh-deploy --force
